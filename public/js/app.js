@@ -7,8 +7,12 @@ new Vue({
     search: '',
   },
   methods: {
-    getProduct(value) {
-      axios.get('/getProduct/' + this.search)
+    getProduct() {
+      axios.get('/getProduct', {
+        params: {
+          search: this.search,
+        }
+      })
         .then((response) => {
           this.products = response.data;
         });

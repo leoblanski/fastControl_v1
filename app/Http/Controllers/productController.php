@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\product;
 use Illuminate\Http\Request;
-use App\product as product;
 
 class productController extends Controller
 {
@@ -15,7 +15,11 @@ class productController extends Controller
 
     function getProducts()
     {
-        $data = product::getAll();
+        $filters['search'] = request('search');
+        $data = product::getAll()
+            ->filter($filters)
+            ->get()
+            ->toArray();
 
         return $data;
     }
